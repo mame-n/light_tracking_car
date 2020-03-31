@@ -33,9 +33,9 @@ class TC < Test::Unit::TestCase
     assert_equal( 0, o.status_Cds )
   end
 
-  def test_motor_on
+  def test_motor_onoff
     o = LightTrackingCar.new
-    assert_equal( nil, o.motor_on(3) )
+    assert_equal( nil, o.motor_onoff(0, 3) )
   end
 
   def test_main

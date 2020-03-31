@@ -7,8 +7,8 @@ BCM20 = 20
 BCM26 = 26
 BCM27 = 27
 
-Light_center = BCM17
-Light_left = BCM18
+Light_left = BCM17
+Light_center = BCM18
 Light_right = BCM27
 
 Motor_Left_Forward = BCM19
@@ -78,7 +78,7 @@ class LightTrackingCar
 #      puts "sum : #{sum_light}, bcm : #{light_bcm}"
       if is_light_on?( light_bcm )
         value = 2 ** @light_bcms.index(light_bcm)
-        puts "***sum : #{sum_light}, bcm : #{light_bcm}, val : #{value}"
+#        puts "***sum : #{sum_light}, bcm : #{light_bcm}, val : #{value}"
         sum_light + value
       else
         sum_light
@@ -125,19 +125,19 @@ class LightTrackingCar
 
   def main
     while 1
-      puts "Logic #{logic_table[status_Cds]}"
+      puts "Logic Cds #{status_Cds} -> #{logic_table[status_Cds]}"
       logic_table[status_Cds].each_with_index do |bit, idx|
-        motor_on(idx) if bit == 1
+        motor_onoff(bit, idx)
       end
-      sleep(1)
+#      sleep(1)
     end
   end
 
-  def motor_on( idx )
+  def motor_onoff( bit, idx )
     direction_path, value_path = set_path( @motor_bcms[idx] )
 
     File.open( value_path, "w" ) do |fp|
-      fp.write( "1" )
+      fp.write( bit.to_s )
     end
   end
 end
